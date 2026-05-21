@@ -13,8 +13,7 @@ GitHub 저장소: https://github.com/nohsangwoo/Toss_Ops_Studio_ex.git
 - `TOSS_PAYMENTS_SECRET_KEY` 기반 서버 승인 API 및 취소 API 호출
 - NextAuth Credentials 기반 관리자 로그인 및 `ADMIN` Role 보호
 - 결제 내역, 승인/취소 합계, 영수증 링크, 환불 증빙 모달 제공
-- OpenAI 이미지 생성 모델로 상품 비주얼 에셋 제작
-- `docs/claude_design.md` 컨셉을 반영한 크림/코랄/다크 톤 리디자인
+- 크림/코랄/다크 톤을 중심으로 한 제품형 UI 리디자인
 
 ## 기술 스택
 
@@ -65,7 +64,6 @@ admin@example.com / admin1234
 ```env
 NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_ID=
 TOSS_PAYMENTS_SECRET_KEY=
-OPEN_API_SCRET_KEY=
 DATABASE_DIR=./.pglite
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=local-nextauth-secret-for-wishket-mockup
@@ -158,14 +156,6 @@ ADMIN_PASSWORD=admin1234
 
 ![토스 개발자센터 취소 요청 Body 마스킹](docs/screenshots/08-api-log-request-masked.png)
 
-## 생성 이미지 에셋
-
-`docs/images2.0.md` 가이드와 `.env`의 `OPEN_API_SCRET_KEY`를 사용해 상품 이미지를 생성했습니다.
-
-- `public/images/products/pg-integration-suite.jpeg`
-- `public/images/products/payment-widget-suite.jpeg`
-- `public/images/products/admin-operations-suite.jpeg`
-
 ## 주요 파일
 
 | 파일 | 역할 |
@@ -197,7 +187,7 @@ npm run build
 
 - ESLint 통과
 - Next.js production build 통과
-- 홈 화면 CSS 및 생성 이미지 렌더링 확인
+- 홈 화면 CSS 및 상품 이미지 렌더링 확인
 - 상품 상세 페이지 결제위젯 렌더링 확인
 - 관리자 로그인 및 결제 목록 확인
 - `/api/payments/prepare` 주문 초안 생성 확인
@@ -223,20 +213,3 @@ cz-shortcut-listen="true"
 - Toss 웹훅으로 결제 상태 변경 동기화 추가
 - 개인정보가 포함된 로그 보관 기간 정책 수립
 - API 응답 원문 저장 시 마스킹/암호화 정책 적용
-
-## Toss Payments MCP
-
-토스페이먼츠 공식 LLM 가이드 기준으로 Codex MCP 설정에 다음 서버를 추가했습니다.
-
-```toml
-[mcp_servers.tosspayments-integration-guide]
-command = "npx"
-args = ["-y", "@tosspayments/integration-guide-mcp@latest"]
-startup_timeout_sec = 120
-```
-
-설정 파일 위치:
-
-```text
-C:\Users\nsgr1\.codex\config.toml
-```
