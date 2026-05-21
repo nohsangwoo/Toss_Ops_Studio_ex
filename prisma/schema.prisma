@@ -1,0 +1,72 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgres"
+  url      = "postgresql://localhost:5432/wishket_mock"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum PaymentStatus {
+  READY
+  IN_PROGRESS
+  DONE
+  CANCELED
+  PARTIAL_CANCELED
+  ABORTED
+  EXPIRED
+  FAILED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String
+  role         Role     @default(USER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Payment {
+  id              String        @id @default(cuid())
+  orderId         String        @unique
+  orderName       String
+  customerName    String?
+  customerEmail   String?
+  customerKey     String
+  amount          Int
+  currency        String        @default("KRW")
+  status          PaymentStatus @default(READY)
+  method          String?
+  paymentKey      String?       @unique
+  approvedAt      DateTime?
+  requestedAt     DateTime?
+  receiptUrl      String?
+  rawResponse     Json?
+  failureCode     String?
+  failureMessage  String?
+  canceledAmount  Int           @default(0)
+  cancelReason    String?
+  canceledAt      DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  events          PaymentEvent[]
+}
+
+model PaymentEvent {
+  id        String   @id @default(cuid())
+  paymentId String
+  type      String
+  payload   Json
+  createdAt DateTime @default(now())
+  payment   Payment  @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+
+  @@index([paymentId])
+}
