@@ -128,6 +128,12 @@ ADMIN_PASSWORD=admin1234
 
 ![관리자 결제 대시보드](docs/screenshots/09-admin-dashboard-live.png)
 
+## 시연 비디오
+
+[![Toss Ops Studio 시연 비디오](docs/videos/mockup-demo-poster.png)](docs/videos/mockup-demo.webm)
+
+- 결제위젯 호출, 서버 승인, 관리자 결제 조회, 환불 증빙 확인까지 이어지는 47초 시연 영상입니다.
+
 ## 결제 및 환불 진행 화면
 
 - 결제 성공 페이지에서 `DONE` 상태와 영수증/관리자 페이지 이동 버튼 노출
