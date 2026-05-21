@@ -45,6 +45,12 @@ npm run dev
 http://localhost:3000
 ```
 
+배포용 시연 페이지:
+
+```text
+http://localhost:3000/showcase
+```
+
 관리자 페이지:
 
 ```text
@@ -81,6 +87,7 @@ ADMIN_PASSWORD=admin1234
 | `/products/pg-integration` | PG 연동 패키지 상세 |
 | `/products/payment-widget` | 결제위젯 주문서 구축 패키지 상세 |
 | `/products/admin-operations` | 결제 운영 어드민 패키지 상세 |
+| `/showcase` | README 내용을 시연 페이지로 재구성한 배포용 프로젝트 소개 |
 | `/payments/success` | Toss success URL 처리, 서버 승인, DB 저장 |
 | `/payments/fail` | 실패/중단 결과 저장 |
 | `/login` | 관리자 로그인 |
@@ -122,45 +129,46 @@ ADMIN_PASSWORD=admin1234
 
 ### 홈 / 상품형 결제 랜딩
 
-![홈 전체 디자인](docs/screenshots/00-home-overview.png)
+![홈 전체 디자인](docs/screenshots/00-home-overview.webp)
 
 ### 관리자 결제 대시보드
 
-![관리자 결제 대시보드](docs/screenshots/09-admin-dashboard-live.png)
+![관리자 결제 대시보드](docs/screenshots/09-admin-dashboard-live.webp)
 
 ## 시연 비디오
 
-[![Toss Ops Studio 시연 비디오](docs/videos/mockup-demo-poster.png)](docs/videos/mockup-demo.webm)
+![Toss Ops Studio 시연 GIF](docs/videos/mockup-demo.gif)
 
 - 결제위젯 호출, 서버 승인, 관리자 결제 조회, 환불 증빙 확인까지 이어지는 47초 시연 영상입니다.
+- 배포용 `/showcase` 페이지에서는 같은 시연을 WebM 플레이어로 확인할 수 있습니다.
 
 ## 결제 및 환불 진행 화면
 
 - 결제 성공 페이지에서 `DONE` 상태와 영수증/관리자 페이지 이동 버튼 노출
 
-![결제 성공 화면](docs/screenshots/01-payment-success.png)
+![결제 성공 화면](docs/screenshots/01-payment-success.webp)
 
 - Toss 테스트 매출전표에서 주문번호, 구매자, 상품명, 카드 승인 정보 확인
 
-![토스 테스트 매출전표 마스킹](docs/screenshots/02-sales-receipt-masked.png)
+![토스 테스트 매출전표 마스킹](docs/screenshots/02-sales-receipt-masked.webp)
 
 - 결제위젯에서 QR/간편결제 인증 UI 노출
 
-![결제위젯 QR 인증 화면 마스킹](docs/screenshots/04-widget-qr-masked.png)
+![결제위젯 QR 인증 화면 마스킹](docs/screenshots/04-widget-qr-masked.webp)
 
 - 관리자 취소 모달에서 취소 사유와 부분 취소 금액 입력
 
-![관리자 결제 취소 모달](docs/screenshots/05-cancel-dialog.png)
+![관리자 결제 취소 모달](docs/screenshots/05-cancel-dialog.webp)
 
 - 취소 후 관리자 대시보드에서 `CANCELED`, 취소 금액, `PAYMENT_CANCELED` 이벤트 반영
 
-![취소 후 관리자 대시보드](docs/screenshots/09-admin-dashboard-live.png)
+![취소 후 관리자 대시보드](docs/screenshots/09-admin-dashboard-live.webp)
 
 - Toss 개발자센터 API 로그에서 `/confirm`, `/cancel` 호출과 응답 확인
 
-![토스 개발자센터 취소 API 로그 마스킹](docs/screenshots/07-api-log-cancel-masked.png)
+![토스 개발자센터 취소 API 로그 마스킹](docs/screenshots/07-api-log-cancel-masked.webp)
 
-![토스 개발자센터 취소 요청 Body 마스킹](docs/screenshots/08-api-log-request-masked.png)
+![토스 개발자센터 취소 요청 Body 마스킹](docs/screenshots/08-api-log-request-masked.webp)
 
 ## 주요 파일
 
@@ -198,6 +206,7 @@ npm run build
 - 관리자 로그인 및 결제 목록 확인
 - `/api/payments/prepare` 주문 초안 생성 확인
 - Toss 결제 승인 및 결제 취소 흐름 확인
+- `/showcase` 시연 페이지 정적 빌드 및 WebM/WebP 에셋 응답 확인
 
 ## Hydration Warning 메모
 

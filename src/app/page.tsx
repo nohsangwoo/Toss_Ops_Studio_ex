@@ -220,6 +220,7 @@ function TopNav() {
         </Link>
         <nav className="hidden items-center gap-6 text-sm font-medium text-[var(--color-claude-muted)] md:flex">
           <a href="#products">상품</a>
+          <Link href="/showcase">시연</Link>
           <Link href="/products/payment-widget">결제위젯</Link>
           <Link href="/admin/payments">어드민</Link>
         </nav>
