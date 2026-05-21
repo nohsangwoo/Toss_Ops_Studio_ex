@@ -1,0 +1,33 @@
+export const estimate = {
+  title: "토스페이먼츠 PG 연동 및 결제 관리 어드민 구축",
+  subtitle: "Next.js 15 기반 결제 운영 시스템 개발 제안",
+  date: "2026.05.22",
+  duration: "14일",
+  price: "1,500,000원",
+  originalPrice: "5,000,000원 상당",
+  people: "3명",
+  githubUrl: "https://github.com/nohsangwoo/Toss_Ops_Studio_ex",
+  projectUrl: "https://tossops.bsclinic.xyz",
+  note:
+    "포트폴리오 및 업력 확보를 위한 이벤트 제안가입니다. 일반적으로 유사 범위는 500만원 수준으로 산정하지만, 이번 건은 빠른 착수와 레퍼런스 확보를 전제로 150만원에 제안드립니다.",
+  scope: [
+    "토스페이먼츠 결제위젯 연동",
+    "결제 요청, 승인, 실패 처리 API 구현",
+    "PostgreSQL 및 Prisma ORM 기반 결제 로그 저장",
+    "NextAuth 기반 ADMIN Role 추가",
+    "결제 내역 조회 어드민 대시보드 구현",
+    "토스페이먼츠 결제 취소 및 환불 처리 구현",
+    "shadcn/ui 기반 PC Web 관리자 화면 구성",
+    "README 및 추가 개발 문서 정리",
+  ],
+  stack: [
+    "Next.js 15",
+    "Server Actions",
+    "API Routes",
+    "PostgreSQL",
+    "Prisma ORM",
+    "NextAuth",
+    "shadcn/ui",
+    "Toss Payments",
+  ],
+};
