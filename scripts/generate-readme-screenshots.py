@@ -333,10 +333,8 @@ def api_log(name, request=False):
 def main():
     payment_success()
     receipt()
-    admin_dashboard("03-admin-approved.png", canceled=False)
     qr_modal()
     cancel_dialog()
-    admin_dashboard("06-admin-canceled.png", canceled=True)
     api_log("07-api-log-cancel-masked.png", request=False)
     api_log("08-api-log-request-masked.png", request=True)
 

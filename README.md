@@ -120,9 +120,17 @@ ADMIN_PASSWORD=admin1234
 - https://docs.tosspayments.com/guides/v2/cancel-payment
 - https://docs.tosspayments.com/reference
 
-## 첨부 스크린샷 기준 진행 상황
+## 화면 캡처
 
-첨부 이미지 기준으로 아래 흐름까지 확인했습니다. README에는 원본이 아니라 민감 정보를 마스킹한 문서용 이미지를 포함했습니다.
+### 홈 / 상품형 결제 랜딩
+
+![홈 전체 디자인](docs/screenshots/00-home-overview.png)
+
+### 관리자 결제 대시보드
+
+![관리자 결제 대시보드](docs/screenshots/09-admin-dashboard-live.png)
+
+## 결제 및 환불 진행 화면
 
 - 결제 성공 페이지에서 `DONE` 상태와 영수증/관리자 페이지 이동 버튼 노출
 
@@ -131,10 +139,6 @@ ADMIN_PASSWORD=admin1234
 - Toss 테스트 매출전표에서 주문번호, 구매자, 상품명, 카드 승인 정보 확인
 
 ![토스 테스트 매출전표 마스킹](docs/screenshots/02-sales-receipt-masked.png)
-
-- 관리자 대시보드에서 승인 결제 추가 및 합계 반영
-
-![승인 후 관리자 대시보드](docs/screenshots/03-admin-approved.png)
 
 - 결제위젯에서 QR/간편결제 인증 UI 노출
 
@@ -146,36 +150,13 @@ ADMIN_PASSWORD=admin1234
 
 - 취소 후 관리자 대시보드에서 `CANCELED`, 취소 금액, `PAYMENT_CANCELED` 이벤트 반영
 
-![취소 후 관리자 대시보드](docs/screenshots/06-admin-canceled.png)
+![취소 후 관리자 대시보드](docs/screenshots/09-admin-dashboard-live.png)
 
 - Toss 개발자센터 API 로그에서 `/confirm`, `/cancel` 호출과 응답 확인
 
 ![토스 개발자센터 취소 API 로그 마스킹](docs/screenshots/07-api-log-cancel-masked.png)
 
 ![토스 개발자센터 취소 요청 Body 마스킹](docs/screenshots/08-api-log-request-masked.png)
-
-## 스크린샷 공개 전 마스킹 기준
-
-첨부 스크린샷을 README, 제안서, 외부 문서에 넣을 때는 아래 항목을 모자이크 또는 블러 처리하세요.
-
-- 결제위젯 QR 코드 전체
-- `paymentKey`
-- `transactionKey`, `lastTransactionKey`
-- `X-TossPayments-Trace-Id`
-- `orderId` 전체 또는 뒷자리 일부
-- 상점아이디 MID
-- 카드번호 뒷자리 포함 카드 식별값
-- API Response Body, Request Body의 식별자 값
-- 실제 구매자명, 이메일, 전화번호가 들어간 경우 전체
-- 실제 사업자등록번호, 주소, 대표자명 등 상점 정보가 들어간 경우
-
-문서용 스크린샷은 `docs/screenshots/`에 저장되어 있습니다. 새 캡처를 추가할 때도 원본 대신 위 기준으로 마스킹한 이미지만 커밋하세요.
-
-문서용 스크린샷은 아래 명령으로 다시 생성할 수 있습니다.
-
-```bash
-python scripts/generate-readme-screenshots.py
-```
 
 ## 생성 이미지 에셋
 
