@@ -35,7 +35,7 @@ export default async function AdminPaymentsPage() {
   }
 
   const prisma = getPrisma();
-  const payments = await prisma.payment.findMany({
+  const payments: AdminPaymentRow[] = await prisma.payment.findMany({
     orderBy: { createdAt: "desc" },
     include: { events: { orderBy: { createdAt: "desc" }, take: 5 } },
   });
@@ -216,6 +216,10 @@ function StatusBadge({ status }: { status: string }) {
 
   return <Badge variant="outline">{status}</Badge>;
 }
+
+type AdminPaymentRow = AdminPaymentEvidenceSource & {
+  id: string;
+};
 
 type AdminPaymentEvidenceSource = {
   status: string;
