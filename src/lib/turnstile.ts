@@ -14,7 +14,7 @@ export async function verifyTurnstileToken(
     remoteIp?: string | null;
   },
 ) {
-  const secretKey = process.env.TURNSTILE_SECRET_KEY;
+  const secretKey = process.env.TURNSTILE_SECRET_KEY?.replace(/^\uFEFF/, "").trim();
 
   if (!secretKey || !token) {
     return { success: false, errorCodes: ["missing_turnstile_token"] };

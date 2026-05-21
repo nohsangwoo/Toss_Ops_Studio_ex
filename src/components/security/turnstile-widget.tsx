@@ -32,6 +32,10 @@ declare global {
 
 let turnstileScriptPromise: Promise<void> | null = null;
 
+function normalizeTurnstileKey(value: string | undefined) {
+  return value?.replace(/^\uFEFF/, "").trim();
+}
+
 function waitForTurnstileReady(timeoutMs = 10000) {
   if (window.turnstile?.render) {
     return Promise.resolve();
@@ -152,7 +156,7 @@ export function TurnstileWidget({
   const onVerifyRef = useRef(onVerify);
   const onExpireRef = useRef(onExpire);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  const siteKey = normalizeTurnstileKey(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
 
   onVerifyRef.current = onVerify;
   onExpireRef.current = onExpire;
