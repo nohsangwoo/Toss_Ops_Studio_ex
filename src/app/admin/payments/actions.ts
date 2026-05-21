@@ -2,11 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import { getServerSession } from "next-auth";
-import type { Prisma } from "@prisma/client";
 
 import { authOptions } from "@/lib/auth-options";
 import { cancelTossPayment, mapTossStatus } from "@/lib/payments/toss";
 import { getPrisma } from "@/lib/prisma";
+import { toPrismaJsonInput } from "@/lib/prisma-json";
 
 export async function cancelPaymentAction(formData: FormData) {
   const session = await getServerSession(authOptions);
@@ -45,6 +45,7 @@ export async function cancelPaymentAction(formData: FormData) {
       cancelReason,
       cancelAmount,
     });
+    const canceledJson = toPrismaJsonInput(canceled);
 
     const canceledTotal =
       Array.isArray(canceled.cancels) && canceled.cancels.length > 0
@@ -66,11 +67,11 @@ export async function cancelPaymentAction(formData: FormData) {
         cancelReason,
         canceledAt: getLatestCanceledAt(canceled) ?? new Date(),
         receiptUrl: canceled.receipt?.url ?? payment.receiptUrl,
-        rawResponse: canceled as Prisma.InputJsonValue,
+        rawResponse: canceledJson,
         events: {
           create: {
             type: "PAYMENT_CANCELED",
-            payload: canceled as Prisma.InputJsonValue,
+            payload: canceledJson,
           },
         },
       },

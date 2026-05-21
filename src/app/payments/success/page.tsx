@@ -1,11 +1,11 @@
 import Link from "next/link";
-import type { Prisma } from "@prisma/client";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { getPrisma } from "@/lib/prisma";
+import { toPrismaJsonInput } from "@/lib/prisma-json";
 import { confirmTossPayment, mapTossStatus } from "@/lib/payments/toss";
 
 type SuccessPageProps = {
@@ -69,6 +69,7 @@ export default async function PaymentSuccessPage({ searchParams }: SuccessPagePr
 
   try {
     const confirmed = await confirmTossPayment({ paymentKey, orderId, amount });
+    const confirmedJson = toPrismaJsonInput(confirmed);
 
     await prisma.payment.update({
       where: { id: payment.id },
@@ -80,11 +81,11 @@ export default async function PaymentSuccessPage({ searchParams }: SuccessPagePr
         requestedAt: confirmed.requestedAt ? new Date(confirmed.requestedAt) : null,
         approvedAt: confirmed.approvedAt ? new Date(confirmed.approvedAt) : null,
         receiptUrl: confirmed.receipt?.url,
-        rawResponse: confirmed as Prisma.InputJsonValue,
+        rawResponse: confirmedJson,
         events: {
           create: {
             type: "PAYMENT_CONFIRMED",
-            payload: confirmed as Prisma.InputJsonValue,
+            payload: confirmedJson,
           },
         },
       },

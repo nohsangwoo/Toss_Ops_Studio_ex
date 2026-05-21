@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import type { Prisma } from "@prisma/client";
 import { CreditCard, ReceiptText, ShieldCheck, Undo2 } from "lucide-react";
 
 import { PaymentCancelDialog } from "@/components/admin/payment-cancel-dialog";
@@ -232,10 +231,10 @@ type AdminPaymentEvidenceSource = {
   cancelReason: string | null;
   receiptUrl: string | null;
   paymentKey: string | null;
-  rawResponse: Prisma.JsonValue | null;
+  rawResponse: unknown;
   events: Array<{
     type: string;
-    payload: Prisma.JsonValue;
+    payload: unknown;
   }>;
 };
 
