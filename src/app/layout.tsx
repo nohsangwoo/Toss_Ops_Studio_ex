@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Wishket Toss Payments Mockup",
-  description: "Next.js, Prisma, PGlite, Toss Payments admin mockup",
+  description: "Next.js, Prisma, Neon PostgreSQL, Toss Payments admin mockup",
 };
 
 export default function RootLayout({

@@ -1,6 +1,6 @@
 # Toss Ops Studio
 
-Next.js 15, Prisma ORM, PGlite, NextAuth, shadcn/ui로 만든 토스페이먼츠 PG 연동 및 결제 관리 어드민 목업입니다. 위시켓 제안용으로 “결제 상품 선택 → Toss Payments 결제위젯 → 서버 승인 → DB 로그 저장 → 관리자 결제 조회 → 관리자 환불”까지 한 흐름으로 확인할 수 있게 구성했습니다.
+Next.js 15, Prisma ORM, Neon PostgreSQL, NextAuth, shadcn/ui로 만든 토스페이먼츠 PG 연동 및 결제 관리 어드민 목업입니다. 위시켓 제안용으로 “결제 상품 선택 → Toss Payments 결제위젯 → 서버 승인 → DB 로그 저장 → 관리자 결제 조회 → 관리자 환불”까지 한 흐름으로 확인할 수 있게 구성했습니다.
 
 ![Toss Ops Studio 시연 GIF](docs/videos/mockup-demo.gif)
 
@@ -11,7 +11,7 @@ GitHub 저장소: https://github.com/nohsangwoo/Toss_Ops_Studio_ex.git
 ## 핵심 구현
 
 - Next.js 15 App Router 기반 PC Web 목업
-- Prisma ORM 6.10 + PGlite 로컬 PostgreSQL 호환 DB
+- Prisma ORM 6.10 + Neon PostgreSQL 운영 DB
 - Toss Payments V2 SDK 결제위젯 연동
 - 서버 라우트 기반 주문 초안 생성, 결제 승인, 결제 실패 처리
 - `TOSS_PAYMENTS_SECRET_KEY` 기반 서버 승인 API 및 취소 API 호출
@@ -27,8 +27,8 @@ GitHub 저장소: https://github.com/nohsangwoo/Toss_Ops_Studio_ex.git
 - Tailwind CSS v4
 - shadcn/ui
 - lucide-react
-- Prisma ORM with PGlite driver adapter
-- PGlite embedded PostgreSQL
+- Prisma ORM
+- Neon PostgreSQL
 - NextAuth v4 Credentials
 - Toss Payments V2 JavaScript SDK
 - Toss Payments REST API
@@ -38,7 +38,7 @@ GitHub 저장소: https://github.com/nohsangwoo/Toss_Ops_Studio_ex.git
 ```bash
 npm install
 npm run db:generate
-npm run db:push
+npm run db:migrate
 npm run db:seed
 npm run dev
 ```
@@ -74,7 +74,7 @@ admin@example.com / admin1234
 ```env
 NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_ID=
 TOSS_PAYMENTS_SECRET_KEY=
-DATABASE_DIR=./.pglite
+DATABASE_URL=
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=local-nextauth-secret-for-wishket-mockup
 ADMIN_EMAIL=admin@example.com
@@ -217,7 +217,7 @@ cz-shortcut-listen="true"
 
 ## 운영 전환 체크리스트
 
-- PGlite를 운영 PostgreSQL로 교체
+- Neon 운영 DB 백업/복구 정책 점검
 - `NEXTAUTH_SECRET`, `ADMIN_PASSWORD`, Toss secret key 교체
 - 관리자 계정 발급/회수 정책 추가
 - 결제 금액 검증 로직 유지

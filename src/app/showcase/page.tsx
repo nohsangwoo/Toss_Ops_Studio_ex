@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 const highlights = [
   { label: "Payment Flow", value: "상품 선택부터 승인 저장까지", icon: CreditCard },
   { label: "Admin Ops", value: "결제 조회, 영수증, 환불 증빙", icon: ReceiptText },
-  { label: "Data Layer", value: "Prisma ORM + PGlite 로그", icon: Database },
+  { label: "Data Layer", value: "Prisma ORM + Neon 로그", icon: Database },
   { label: "Auth Guard", value: "NextAuth ADMIN Role 보호", icon: ShieldCheck },
 ];
 
@@ -37,7 +37,7 @@ const stack = [
   "Tailwind CSS v4",
   "shadcn/ui",
   "Prisma ORM",
-  "PGlite",
+  "Neon PostgreSQL",
   "NextAuth Credentials",
   "Toss Payments V2 SDK",
   "Toss Payments REST API",
@@ -127,7 +127,7 @@ export default function ShowcasePage() {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 py-16 lg:px-8 lg:py-20">
           <div className="max-w-4xl">
             <Badge className="h-7 rounded-full border-[#4c4740] bg-[#25211d] px-3 text-[#f8d7ca]">
-              Next.js 15 · Prisma · PGlite · Toss Payments
+              Next.js 15 · Prisma · Neon · Toss Payments
             </Badge>
             <h1 className="mt-6 max-w-4xl font-display text-5xl font-medium leading-none md:text-6xl">
               결제 연동과 운영 어드민을 한 흐름으로 검증하는 시연 페이지

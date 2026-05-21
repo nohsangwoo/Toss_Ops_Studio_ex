@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import { getPrisma } from "../src/lib/prisma";
 
 async function main() {
-  console.log("Seeding PGlite database...");
+  console.log("Seeding Neon PostgreSQL database...");
   const prisma = getPrisma();
   const email = process.env.ADMIN_EMAIL ?? "admin@example.com";
   const password = process.env.ADMIN_PASSWORD ?? "admin1234";

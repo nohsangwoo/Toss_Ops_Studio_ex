@@ -8,12 +8,12 @@
     "start": "next start",
     "lint": "eslint",
     "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
     "db:seed": "tsx scripts/seed.ts",
     "db:studio": "prisma studio"
   },
   "dependencies": {
-    "@electric-sql/pglite": "^0.4.1",
     "@prisma/client": "^6.10.1",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
@@ -21,7 +21,6 @@
     "lucide-react": "^1.16.0",
     "next": "^15.5.18",
     "next-auth": "^4.24.14",
-    "pglite-prisma-adapter": "^0.6.1",
     "prisma": "^6.10.1",
     "radix-ui": "^1.4.3",
     "react": "19.2.4",
