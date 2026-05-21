@@ -122,15 +122,37 @@ ADMIN_PASSWORD=admin1234
 
 ## 첨부 스크린샷 기준 진행 상황
 
-첨부 이미지 기준으로 아래 흐름까지 확인했습니다.
+첨부 이미지 기준으로 아래 흐름까지 확인했습니다. README에는 원본이 아니라 민감 정보를 마스킹한 문서용 이미지를 포함했습니다.
 
 - 결제 성공 페이지에서 `DONE` 상태와 영수증/관리자 페이지 이동 버튼 노출
+
+![결제 성공 화면](docs/screenshots/01-payment-success.png)
+
 - Toss 테스트 매출전표에서 주문번호, 구매자, 상품명, 카드 승인 정보 확인
+
+![토스 테스트 매출전표 마스킹](docs/screenshots/02-sales-receipt-masked.png)
+
 - 관리자 대시보드에서 승인 결제 추가 및 합계 반영
+
+![승인 후 관리자 대시보드](docs/screenshots/03-admin-approved.png)
+
 - 결제위젯에서 QR/간편결제 인증 UI 노출
+
+![결제위젯 QR 인증 화면 마스킹](docs/screenshots/04-widget-qr-masked.png)
+
 - 관리자 취소 모달에서 취소 사유와 부분 취소 금액 입력
+
+![관리자 결제 취소 모달](docs/screenshots/05-cancel-dialog.png)
+
 - 취소 후 관리자 대시보드에서 `CANCELED`, 취소 금액, `PAYMENT_CANCELED` 이벤트 반영
+
+![취소 후 관리자 대시보드](docs/screenshots/06-admin-canceled.png)
+
 - Toss 개발자센터 API 로그에서 `/confirm`, `/cancel` 호출과 응답 확인
+
+![토스 개발자센터 취소 API 로그 마스킹](docs/screenshots/07-api-log-cancel-masked.png)
+
+![토스 개발자센터 취소 요청 Body 마스킹](docs/screenshots/08-api-log-request-masked.png)
 
 ## 스크린샷 공개 전 마스킹 기준
 
@@ -147,7 +169,13 @@ ADMIN_PASSWORD=admin1234
 - 실제 구매자명, 이메일, 전화번호가 들어간 경우 전체
 - 실제 사업자등록번호, 주소, 대표자명 등 상점 정보가 들어간 경우
 
-현재 README에는 민감한 스크린샷 원본을 포함하지 않았습니다. 공유용 이미지는 위 기준으로 마스킹한 뒤 별도 `docs/screenshots/`에 추가하는 것을 권장합니다.
+문서용 스크린샷은 `docs/screenshots/`에 저장되어 있습니다. 새 캡처를 추가할 때도 원본 대신 위 기준으로 마스킹한 이미지만 커밋하세요.
+
+문서용 스크린샷은 아래 명령으로 다시 생성할 수 있습니다.
+
+```bash
+python scripts/generate-readme-screenshots.py
+```
 
 ## 생성 이미지 에셋
 
