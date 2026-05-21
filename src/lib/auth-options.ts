@@ -3,6 +3,7 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import { getPrisma } from "@/lib/prisma";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -17,12 +18,22 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
+        turnstileToken: { label: "Turnstile", type: "text" },
       },
       async authorize(credentials) {
         const email = credentials?.email?.toLowerCase().trim();
         const password = credentials?.password ?? "";
+        const turnstileToken = credentials?.turnstileToken ?? "";
 
-        if (!email || !password) {
+        if (!email || !password || !turnstileToken) {
+          return null;
+        }
+
+        const turnstileResult = await verifyTurnstileToken(turnstileToken, {
+          action: "admin_login",
+        });
+
+        if (!turnstileResult.success) {
           return null;
         }
 

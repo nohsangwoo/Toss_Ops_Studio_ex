@@ -3,6 +3,7 @@
 import { CreditCard, Loader2, ShieldCheck } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 
+import { TurnstileWidget } from "@/components/security/turnstile-widget";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -100,6 +101,8 @@ export function PaymentWidgetCheckout({
   const [customerKey] = useState(createCustomerKey);
   const [widgetMessage, setWidgetMessage] = useState("결제위젯을 준비하고 있습니다.");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
   const [isPending, startTransition] = useTransition();
   const widgetsRef = useRef<TossWidgets | null>(null);
 
@@ -169,6 +172,10 @@ export function PaymentWidgetCheckout({
           throw new Error("결제위젯이 아직 준비되지 않았습니다.");
         }
 
+        if (!turnstileToken) {
+          throw new Error("보안 인증을 완료해주세요.");
+        }
+
         const response = await fetch("/api/payments/prepare", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -177,6 +184,7 @@ export function PaymentWidgetCheckout({
             customerKey,
             customerName,
             customerEmail,
+            turnstileToken,
           }),
         });
 
@@ -196,6 +204,8 @@ export function PaymentWidgetCheckout({
           customerName,
         });
       } catch (error) {
+        setTurnstileToken(null);
+        setTurnstileResetKey((key) => key + 1);
         setErrorMessage(error instanceof Error ? error.message : "결제 요청 중 오류가 발생했습니다.");
       }
     });
@@ -267,12 +277,25 @@ export function PaymentWidgetCheckout({
         <div id={agreementId} className="border-t border-[var(--color-claude-hairline)] px-2 py-3" />
       </div>
 
+      <div className="rounded-lg border border-[var(--color-claude-hairline)] bg-[var(--color-claude-canvas)] p-4">
+        <div className="mb-3 flex items-center gap-2 text-sm text-[var(--color-claude-muted)]">
+          <ShieldCheck className="h-4 w-4 text-[var(--color-claude-primary)]" />
+          결제 요청 전 보안 인증
+        </div>
+        <TurnstileWidget
+          key={turnstileResetKey}
+          action="payment_prepare"
+          onVerify={setTurnstileToken}
+          onExpire={() => setTurnstileToken(null)}
+        />
+      </div>
+
       {errorMessage ? <p className="text-sm text-[var(--color-claude-error)]">{errorMessage}</p> : null}
 
       <Button
         className="h-12 w-full rounded-md bg-[var(--color-claude-primary)] text-white hover:bg-[var(--color-claude-primary-active)]"
         onClick={requestPayment}
-        disabled={isPending}
+        disabled={isPending || !turnstileToken}
       >
         {isPending ? <Loader2 className="animate-spin" /> : <CreditCard />}
         결제위젯으로 결제 요청

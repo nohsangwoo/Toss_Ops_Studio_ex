@@ -16,6 +16,7 @@ GitHub 저장소: https://github.com/nohsangwoo/Toss_Ops_Studio_ex.git
 - 서버 라우트 기반 주문 초안 생성, 결제 승인, 결제 실패 처리
 - `TOSS_PAYMENTS_SECRET_KEY` 기반 서버 승인 API 및 취소 API 호출
 - NextAuth Credentials 기반 관리자 로그인 및 `ADMIN` Role 보호
+- Cloudflare Turnstile 기반 관리자 로그인 및 결제 요청 보호
 - 결제 내역, 승인/취소 합계, 영수증 링크, 환불 증빙 모달 제공
 - 크림/코랄/다크 톤을 중심으로 한 제품형 UI 리디자인
 
@@ -30,6 +31,7 @@ GitHub 저장소: https://github.com/nohsangwoo/Toss_Ops_Studio_ex.git
 - Prisma ORM
 - Neon PostgreSQL
 - NextAuth v4 Credentials
+- Cloudflare Turnstile
 - Toss Payments V2 JavaScript SDK
 - Toss Payments REST API
 
@@ -79,9 +81,11 @@ NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=local-nextauth-secret-for-wishket-mockup
 ADMIN_EMAIL=admin@example.com
 ADMIN_PASSWORD=admin1234
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=
+TURNSTILE_SECRET_KEY=
 ```
 
-운영 또는 외부 공유 전에는 `NEXTAUTH_SECRET`, `ADMIN_PASSWORD`, Toss 키를 반드시 교체하세요.
+운영 또는 외부 공유 전에는 `NEXTAUTH_SECRET`, `ADMIN_PASSWORD`, Toss 키, Turnstile 키를 반드시 교체하세요.
 
 ## 주요 페이지
 
@@ -104,11 +108,12 @@ ADMIN_PASSWORD=admin1234
 3. `tossPayments.widgets({ customerKey })`로 결제위젯을 초기화합니다.
 4. 상품 금액을 `widgets.setAmount({ value, currency: "KRW" })`로 동기화합니다.
 5. `renderPaymentMethods`, `renderAgreement`로 결제수단과 약관 UI를 렌더링합니다.
-6. 결제 요청 전 `/api/payments/prepare`에서 DB에 `READY` 주문 초안을 생성합니다.
-7. `widgets.requestPayment()`로 Toss 결제 인증을 시작합니다.
-8. 성공 URL `/payments/success`에서 서버가 DB 저장 금액과 URL 금액을 비교합니다.
-9. 서버가 `POST /v1/payments/confirm`을 호출하고 승인 결과를 DB에 저장합니다.
-10. 관리자 페이지에서 결제 상태, 매출전표, 이벤트 로그를 확인합니다.
+6. 결제 요청 전 Turnstile 토큰을 서버에서 검증합니다.
+7. `/api/payments/prepare`에서 DB에 `READY` 주문 초안을 생성합니다.
+8. `widgets.requestPayment()`로 Toss 결제 인증을 시작합니다.
+9. 성공 URL `/payments/success`에서 서버가 DB 저장 금액과 URL 금액을 비교합니다.
+10. 서버가 `POST /v1/payments/confirm`을 호출하고 승인 결과를 DB에 저장합니다.
+11. 관리자 페이지에서 결제 상태, 매출전표, 이벤트 로그를 확인합니다.
 
 ## 환불 및 증빙 흐름
 

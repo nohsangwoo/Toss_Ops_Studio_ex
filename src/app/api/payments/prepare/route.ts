@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+import { getClientIp, verifyTurnstileToken } from "@/lib/turnstile";
 import { createPaymentDraft } from "@/lib/payments/orders";
 
 const preparePaymentSchema = z.object({
@@ -8,6 +9,7 @@ const preparePaymentSchema = z.object({
   customerKey: z.string().min(2).max(300).optional(),
   customerName: z.string().max(80).optional(),
   customerEmail: z.string().email().optional().or(z.literal("")),
+  turnstileToken: z.string().min(1),
 });
 
 export async function POST(request: Request) {
@@ -17,6 +19,18 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { message: "결제 요청 정보가 올바르지 않습니다." },
       { status: 400 },
+    );
+  }
+
+  const turnstileResult = await verifyTurnstileToken(parsed.data.turnstileToken, {
+    action: "payment_prepare",
+    remoteIp: getClientIp(request.headers),
+  });
+
+  if (!turnstileResult.success) {
+    return NextResponse.json(
+      { message: "보안 인증에 실패했습니다. 다시 시도해주세요." },
+      { status: 403 },
     );
   }
 
