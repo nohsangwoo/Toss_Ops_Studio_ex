@@ -2,6 +2,10 @@
 
 Next.js 15, Prisma ORM, PGlite, NextAuth, shadcn/ui로 만든 토스페이먼츠 PG 연동 및 결제 관리 어드민 목업입니다. 위시켓 제안용으로 “결제 상품 선택 → Toss Payments 결제위젯 → 서버 승인 → DB 로그 저장 → 관리자 결제 조회 → 관리자 환불”까지 한 흐름으로 확인할 수 있게 구성했습니다.
 
+![Toss Ops Studio 시연 GIF](docs/videos/mockup-demo.gif)
+
+결제위젯 호출, 서버 승인, 관리자 결제 조회, 환불 증빙 확인까지 이어지는 47초 시연입니다. 배포용 `/showcase` 페이지에서는 같은 시연을 WebM 플레이어로 확인할 수 있습니다.
+
 GitHub 저장소: https://github.com/nohsangwoo/Toss_Ops_Studio_ex.git
 
 ## 핵심 구현
@@ -134,13 +138,6 @@ ADMIN_PASSWORD=admin1234
 ### 관리자 결제 대시보드
 
 ![관리자 결제 대시보드](docs/screenshots/09-admin-dashboard-live.webp)
-
-## 시연 비디오
-
-![Toss Ops Studio 시연 GIF](docs/videos/mockup-demo.gif)
-
-- 결제위젯 호출, 서버 승인, 관리자 결제 조회, 환불 증빙 확인까지 이어지는 47초 시연 영상입니다.
-- 배포용 `/showcase` 페이지에서는 같은 시연을 WebM 플레이어로 확인할 수 있습니다.
 
 ## 결제 및 환불 진행 화면
 
