@@ -8,6 +8,10 @@ Next.js 15, Prisma ORM, Neon PostgreSQL, NextAuth, shadcn/ui로 만든 토스페
 
 GitHub 저장소: https://github.com/nohsangwoo/Toss_Ops_Studio_ex.git
 
+배포 페이지: https://tossops.bsclinic.xyz
+
+시연 페이지: https://tossops.bsclinic.xyz/showcase
+
 ## 핵심 구현
 
 - Next.js 15 App Router 기반 PC Web 목업
@@ -51,10 +55,16 @@ npm run dev
 http://localhost:3000
 ```
 
+배포 페이지:
+
+```text
+https://tossops.bsclinic.xyz
+```
+
 배포용 시연 페이지:
 
 ```text
-http://localhost:3000/showcase
+https://tossops.bsclinic.xyz/showcase
 ```
 
 관리자 페이지:
