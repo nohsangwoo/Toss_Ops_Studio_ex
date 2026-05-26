@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowDownToLine, ArrowUpRight, Database, LockKeyhole, Server, ShieldCheck } from "lucide-react";
+import Image from "next/image";
 
 import { directFarmProposal } from "@/lib/directfarm/proposal";
 
@@ -54,7 +55,82 @@ export default function DirectFarmProposalPage() {
           <Metric label="진행 방식" value="MVP 구축" />
         </section>
 
-        <section className="grid gap-6 md:grid-cols-[1.05fr_0.95fr] print:grid-cols-[1.05fr_0.95fr]">
+        <section className="grid gap-6 md:grid-cols-3 print:grid-cols-3">
+          {directFarmProposal.projectBackground.map((item) => (
+            <ReportBlock key={item.label} title={item.label}>
+              <p className="leading-7 text-neutral-700">{item.value}</p>
+            </ReportBlock>
+          ))}
+        </section>
+
+        <section className="mt-6 rounded-[24px] border border-neutral-200 bg-white p-6 print:mt-4 print:p-4">
+          <div className="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#ff385c]">
+                Verified Screens
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight">시연 화면 기준 구현 내용</h2>
+            </div>
+            <p className="max-w-xl text-sm leading-6 text-neutral-600">
+              첨부된 실제 시연 캡처를 기준으로 소비자 주문 화면과 관리자 운영 화면에 포함되는 범위를
+              분리해 정리했습니다.
+            </p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2 print:grid-cols-2">
+            {directFarmProposal.verifiedScreens.map((screen) => (
+              <div key={screen.title} className="overflow-hidden rounded-[24px] border border-neutral-200">
+                <div className="relative aspect-[4/3] bg-neutral-100">
+                  <Image
+                    src={screen.imageUrl}
+                    alt={screen.alt}
+                    fill
+                    sizes="(min-width: 768px) 45vw, 100vw"
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="space-y-3 p-5">
+                  <h3 className="text-xl font-semibold tracking-tight">{screen.title}</h3>
+                  <p className="text-sm leading-6 text-neutral-700">{screen.description}</p>
+                  <ul className="space-y-2 text-sm leading-6 text-neutral-600">
+                    {screen.points.map((point) => (
+                      <li key={point} className="flex gap-2">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#ff385c]" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-6 grid gap-6 md:grid-cols-2 print:mt-4 print:grid-cols-2">
+          <FlowBlock title="소비자 주문 흐름" items={directFarmProposal.customerFlow} />
+          <FlowBlock title="관리자 운영 흐름" items={directFarmProposal.adminFlow} />
+        </section>
+
+        <section className="mt-6 rounded-[24px] border border-neutral-200 bg-white p-6 print:mt-4 print:p-4">
+          <h2 className="text-2xl font-semibold tracking-tight print:text-xl">
+            시연 화면에서 확인된 전체 시나리오
+          </h2>
+          <div className="mt-4 grid gap-3 md:grid-cols-2 print:grid-cols-2">
+            {directFarmProposal.verifiedScenarios.map((scenario) => (
+              <div key={scenario.title} className="rounded-2xl border border-neutral-200 bg-neutral-50 p-4">
+                <p className="font-semibold tracking-tight">{scenario.title}</p>
+                <p className="mt-2 text-sm leading-6 text-neutral-700">{scenario.value}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-6 grid gap-6 md:grid-cols-3 print:mt-4 print:grid-cols-3">
+          {directFarmProposal.implementationDetails.map((detail) => (
+            <FlowBlock key={detail.title} title={detail.title} items={detail.items} />
+          ))}
+        </section>
+
+        <section className="mt-6 grid gap-6 md:grid-cols-[1.05fr_0.95fr] print:mt-4 print:grid-cols-[1.05fr_0.95fr]">
           <ReportBlock title="수행 범위">
             <ul className="space-y-3">
               {directFarmProposal.scope.map((item) => (
@@ -136,6 +212,24 @@ function ReportBlock({ title, children }: { title: string; children: React.React
     <section className="rounded-[24px] border border-neutral-200 bg-white p-6 print:p-4">
       <h2 className="mb-4 text-2xl font-semibold tracking-tight print:text-xl">{title}</h2>
       {children}
+    </section>
+  );
+}
+
+function FlowBlock({ title, items }: { title: string; items: string[] }) {
+  return (
+    <section className="rounded-[24px] border border-neutral-200 bg-white p-6 print:p-4">
+      <h2 className="mb-4 text-2xl font-semibold tracking-tight print:text-xl">{title}</h2>
+      <ol className="space-y-3">
+        {items.map((item, index) => (
+          <li key={item} className="flex gap-3 leading-6 text-neutral-700">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#ff385c] font-mono text-xs font-semibold text-white">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }
