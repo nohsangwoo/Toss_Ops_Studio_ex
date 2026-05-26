@@ -102,6 +102,48 @@ export const directFarmProposal = {
         "관리자 화면에서 결제 상태, 주문번호, 구매자, 수량, 금액, 도매처, 전송 상태, 주문일, 영수증, 재전송 기능을 확인합니다.",
     },
   ],
+  paymentScreens: [
+    {
+      title: "상품 선택 후 결제 전 확인",
+      imageUrl: "/images/directfarm/proposal/product-detail.webp",
+      alt: "DirectFarm 상품 선택 후 결제 전 상세 확인 화면",
+      description:
+        "상품 이미지, 원산지, 단위, 배송 방식, 결제 금액을 확인한 뒤 결제 흐름으로 진입하는 화면입니다.",
+      points: ["상품 상세 정보 확인", "단건 결제 금액 확인", "도매처 전송 대상 상품 확인"],
+    },
+    {
+      title: "배송지 입력 및 결제 직전",
+      imageUrl: "/images/directfarm/proposal/checkout-before-payment.webp",
+      alt: "DirectFarm 배송지 입력 및 Toss 결제위젯 화면",
+      description:
+        "수령인, 연락처, 주소, 상세주소를 입력하고 Toss Payments 결제위젯과 Turnstile 인증을 함께 확인하는 결제 직전 화면입니다.",
+      points: ["배송지 입력 폼", "Toss 결제수단 UI", "Turnstile 보안 인증"],
+    },
+    {
+      title: "QR 간편결제 호출",
+      imageUrl: "/images/directfarm/proposal/qr-payment.webp",
+      alt: "Toss Payments QR 결제창",
+      description:
+        "결제 요청 후 고객 휴대폰 카메라로 QR을 스캔해 결제를 이어가는 Toss Payments 결제창입니다.",
+      points: ["QR 결제창 호출", "휴대폰 결제 유도", "실물 카드 단말기 대체"],
+    },
+    {
+      title: "결제 완료 화면",
+      imageUrl: "/images/directfarm/proposal/payment-success.webp",
+      alt: "DirectFarm 결제 완료 화면",
+      description:
+        "결제 승인 후 주문 상태를 PAID로 저장하고 주문 화면, 관리자 화면, 영수증으로 이동할 수 있는 완료 화면입니다.",
+      points: ["결제 승인 결과 표시", "주문 화면 자동 복귀", "영수증 링크 제공"],
+    },
+    {
+      title: "매출전표/영수증 화면",
+      imageUrl: "/images/directfarm/proposal/sales-receipt.webp",
+      alt: "Toss Payments 매출전표 화면",
+      description:
+        "Toss Payments에서 제공하는 카드 매출전표로 주문번호, 구매상품, 결제상태, 결제일시, 금액을 확인합니다.",
+      points: ["결제 증빙 확인", "주문번호 대조", "공급가/부가세/합계 확인"],
+    },
+  ],
   implementationDetails: [
     {
       title: "결제 및 보안",

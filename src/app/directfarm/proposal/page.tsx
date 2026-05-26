@@ -124,6 +124,47 @@ export default function DirectFarmProposalPage() {
           </div>
         </section>
 
+        <section className="mt-6 rounded-[24px] border border-neutral-200 bg-white p-6 print:mt-4 print:p-4">
+          <div className="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#ff385c]">
+                Payment Evidence
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight">결제 진행 및 증빙 화면</h2>
+            </div>
+            <p className="max-w-xl text-sm leading-6 text-neutral-600">
+              상품 선택 이후 결제 직전, QR 결제 호출, 결제 완료, 매출전표까지 이어지는 증빙 화면입니다.
+            </p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2 print:grid-cols-2">
+            {directFarmProposal.paymentScreens.map((screen) => (
+              <div key={screen.title} className="overflow-hidden rounded-[22px] border border-neutral-200 bg-white">
+                <div className="relative aspect-[4/3] bg-neutral-100">
+                  <Image
+                    src={screen.imageUrl}
+                    alt={screen.alt}
+                    fill
+                    sizes="(min-width: 768px) 45vw, 100vw"
+                    className="object-contain object-top"
+                  />
+                </div>
+                <div className="space-y-3 p-5">
+                  <h3 className="text-lg font-semibold tracking-tight">{screen.title}</h3>
+                  <p className="text-sm leading-6 text-neutral-700">{screen.description}</p>
+                  <ul className="space-y-2 text-sm leading-6 text-neutral-600">
+                    {screen.points.map((point) => (
+                      <li key={point} className="flex gap-2">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#ff385c]" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="mt-6 grid gap-6 md:grid-cols-3 print:mt-4 print:grid-cols-3">
           {directFarmProposal.implementationDetails.map((detail) => (
             <FlowBlock key={detail.title} title={detail.title} items={detail.items} />
