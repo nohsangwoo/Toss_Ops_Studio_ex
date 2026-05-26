@@ -14,6 +14,11 @@ GitHub 저장소: https://github.com/nohsangwoo/Toss_Ops_Studio_ex.git
 
 DirectFarm 무인 산지직송 MVP: https://tossops.bsclinic.xyz/directfarm
 
+프로젝트별 공유 문서:
+
+- Toss Ops Studio: 현재 README
+- DirectFarm: [docs/projects/directfarm/README.md](docs/projects/directfarm/README.md)
+
 ## 핵심 구현
 
 - Next.js 16 App Router 기반 PC Web 목업
