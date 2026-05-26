@@ -158,8 +158,13 @@ export function TurnstileWidget({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const siteKey = normalizeTurnstileKey(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
 
-  onVerifyRef.current = onVerify;
-  onExpireRef.current = onExpire;
+  useEffect(() => {
+    onVerifyRef.current = onVerify;
+  }, [onVerify]);
+
+  useEffect(() => {
+    onExpireRef.current = onExpire;
+  }, [onExpire]);
 
   useEffect(() => {
     let canceled = false;

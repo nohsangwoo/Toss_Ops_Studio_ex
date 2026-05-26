@@ -24,7 +24,7 @@ export default function Home() {
       <section className="mx-auto grid w-full max-w-7xl gap-12 px-6 py-16 lg:grid-cols-[1fr_520px] lg:py-24">
         <div className="flex flex-col justify-center">
           <Badge className="w-fit rounded-full bg-[var(--color-claude-card)] px-3 py-1 text-[var(--color-claude-ink)]">
-            Next.js 15 · Prisma · Neon · Toss Payments
+            Next.js 16 · Prisma · Neon · Toss Payments
           </Badge>
           <h1 className="mt-6 max-w-4xl font-display text-5xl font-medium leading-[0.95] tracking-[-0.035em] text-[var(--color-claude-ink)] md:text-7xl">
             결제 연동을 제품처럼 완성하는 주문서와 운영 화면

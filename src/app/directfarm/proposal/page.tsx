@@ -156,7 +156,7 @@ function ReportLink({ href, label }: { href: string; label: string }) {
 
 function ArchitectureDiagram() {
   const boxes = [
-    { icon: <Server />, title: "Vercel", desc: "Next.js 15 App Router" },
+    { icon: <Server />, title: "Vercel", desc: "Next.js 16 App Router" },
     { icon: <Database />, title: "Neon PostgreSQL", desc: "Prisma schema and migration" },
     { icon: <ShieldCheck />, title: "Toss Payments", desc: "QR payment and receipt" },
     { icon: <LockKeyhole />, title: "Turnstile + NextAuth", desc: "Bot check and admin role" },

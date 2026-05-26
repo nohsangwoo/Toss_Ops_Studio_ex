@@ -22,7 +22,7 @@ export const directFarmProposal = {
   stack: [
     {
       label: "Frontend",
-      value: "Next.js 15 App Router, React, TypeScript, Tailwind CSS, shadcn/ui",
+      value: "Next.js 16 App Router, React, TypeScript, Tailwind CSS, shadcn/ui",
     },
     {
       label: "Backend",

@@ -1,6 +1,6 @@
 # Toss Ops Studio
 
-Next.js 15, Prisma ORM, Neon PostgreSQL, NextAuth, shadcn/ui로 만든 토스페이먼츠 PG 연동 및 결제 관리 어드민 목업입니다. 위시켓 제안용으로 “결제 상품 선택 → Toss Payments 결제위젯 → 서버 승인 → DB 로그 저장 → 관리자 결제 조회 → 관리자 환불”까지 한 흐름으로 확인할 수 있게 구성했습니다.
+Next.js 16, Prisma ORM, Neon PostgreSQL, NextAuth, shadcn/ui로 만든 토스페이먼츠 PG 연동 및 결제 관리 어드민 목업입니다. 위시켓 제안용으로 “결제 상품 선택 → Toss Payments 결제위젯 → 서버 승인 → DB 로그 저장 → 관리자 결제 조회 → 관리자 환불”까지 한 흐름으로 확인할 수 있게 구성했습니다.
 
 ![Toss Ops Studio 시연 GIF](docs/videos/mockup-demo.gif)
 
@@ -16,7 +16,7 @@ DirectFarm 무인 산지직송 MVP: https://tossops.bsclinic.xyz/directfarm
 
 ## 핵심 구현
 
-- Next.js 15 App Router 기반 PC Web 목업
+- Next.js 16 App Router 기반 PC Web 목업
 - Prisma ORM 6.10 + Neon PostgreSQL 운영 DB
 - Toss Payments V2 SDK 결제위젯 연동
 - 서버 라우트 기반 주문 초안 생성, 결제 승인, 결제 실패 처리
@@ -29,7 +29,8 @@ DirectFarm 무인 산지직송 MVP: https://tossops.bsclinic.xyz/directfarm
 
 ## 기술 스택
 
-- Next.js 15.5.18
+- Next.js 16.2.6
+- Node.js 20.9 이상
 - React 19
 - TypeScript
 - Tailwind CSS v4

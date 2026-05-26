@@ -31,7 +31,7 @@ const highlights = [
 ];
 
 const stack = [
-  "Next.js 15 App Router",
+  "Next.js 16 App Router",
   "React 19",
   "TypeScript",
   "Tailwind CSS v4",
@@ -127,7 +127,7 @@ export default function ShowcasePage() {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 py-16 lg:px-8 lg:py-20">
           <div className="max-w-4xl">
             <Badge className="h-7 rounded-full border-[#4c4740] bg-[#25211d] px-3 text-[#f8d7ca]">
-              Next.js 15 · Prisma · Neon · Toss Payments
+              Next.js 16 · Prisma · Neon · Toss Payments
             </Badge>
             <h1 className="mt-6 max-w-4xl font-display text-5xl font-medium leading-none md:text-6xl">
               결제 연동과 운영 어드민을 한 흐름으로 검증하는 시연 페이지

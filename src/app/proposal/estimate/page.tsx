@@ -45,7 +45,7 @@ export default function EstimatePage() {
           <div className="rounded-lg border border-[#ded6ca] bg-[#f7f4ee] p-5">
             <p className="text-sm font-semibold text-[#6c6a64]">발주처 기술 스택 수용 범위</p>
             <p className="mt-2 leading-7">
-              Next.js 15, Server Action, API Routes, PostgreSQL, Prisma ORM, shadcn/ui 기준의
+              Next.js 16, Server Action, API Routes, PostgreSQL, Prisma ORM, shadcn/ui 기준의
               제안 내용을 100% 수용 가능합니다.
             </p>
           </div>

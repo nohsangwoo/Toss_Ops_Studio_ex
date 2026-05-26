@@ -1,6 +1,6 @@
 export const estimate = {
   title: "토스페이먼츠 PG 연동 및 결제 관리 어드민 구축",
-  subtitle: "Next.js 15 기반 결제 운영 시스템 개발 제안",
+  subtitle: "Next.js 16 기반 결제 운영 시스템 개발 제안",
   date: "2026.05.22",
   duration: "14일",
   price: "1,500,000원",
@@ -21,7 +21,7 @@ export const estimate = {
     "README 및 추가 개발 문서 정리",
   ],
   stack: [
-    "Next.js 15",
+    "Next.js 16",
     "Server Actions",
     "API Routes",
     "PostgreSQL",

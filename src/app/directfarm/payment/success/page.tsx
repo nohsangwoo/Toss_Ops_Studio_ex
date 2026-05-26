@@ -19,6 +19,13 @@ type DirectFarmPaymentSuccessPageProps = {
   }>;
 };
 
+type ResultCardProps = {
+  status: string;
+  title: string;
+  description: string;
+  receiptUrl?: string;
+};
+
 export default async function DirectFarmPaymentSuccessPage({
   searchParams,
 }: DirectFarmPaymentSuccessPageProps) {
@@ -70,6 +77,8 @@ export default async function DirectFarmPaymentSuccessPage({
     );
   }
 
+  let result: ResultCardProps;
+
   try {
     const confirmed = await confirmTossPayment({ paymentKey, orderId, amount });
     const confirmedJson = toPrismaJsonInput(confirmed);
@@ -94,18 +103,14 @@ export default async function DirectFarmPaymentSuccessPage({
       await sendDirectFarmOrderNotification(updatedOrder.orderId);
     }
 
-    return (
-      <ResultCard
-        status={isPaid ? "PAID" : confirmed.status}
-        title={isPaid ? "주문과 결제가 완료되었습니다" : "결제 승인 대기 상태입니다"}
-        description={
-          isPaid
-            ? `${updatedOrder.vendor.name}으로 전송할 주문 로그를 생성했습니다.`
-            : "Toss 응답이 완료 상태가 아니어서 알림 전송은 보류했습니다."
-        }
-        receiptUrl={confirmed.receipt?.url}
-      />
-    );
+    result = {
+      status: isPaid ? "PAID" : confirmed.status,
+      title: isPaid ? "주문과 결제가 완료되었습니다" : "결제 승인 대기 상태입니다",
+      description: isPaid
+        ? `${updatedOrder.vendor.name}으로 전송할 주문 로그를 생성했습니다.`
+        : "Toss 응답이 완료 상태가 아니어서 알림 전송은 보류했습니다.",
+      receiptUrl: confirmed.receipt?.url,
+    };
   } catch (error) {
     const message = error instanceof Error ? error.message : "결제 승인 중 오류가 발생했습니다.";
 
@@ -119,21 +124,17 @@ export default async function DirectFarmPaymentSuccessPage({
       },
     });
 
-    return <ResultCard status="FAILED" title="결제 승인 실패" description={message} />;
+    result = {
+      status: "FAILED",
+      title: "결제 승인 실패",
+      description: message,
+    };
   }
+
+  return <ResultCard {...result} />;
 }
 
-function ResultCard({
-  status,
-  title,
-  description,
-  receiptUrl,
-}: {
-  status: string;
-  title: string;
-  description: string;
-  receiptUrl?: string;
-}) {
+function ResultCard({ status, title, description, receiptUrl }: ResultCardProps) {
   const isSuccess = status === "PAID";
 
   return (
