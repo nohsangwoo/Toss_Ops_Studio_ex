@@ -8,6 +8,7 @@ export type DirectFarmShippingInput = {
   address: string;
   addressDetail?: string;
   customerKey?: string;
+  quantity?: number;
 };
 
 export async function createDirectFarmOrderDraft(productId: string, input: DirectFarmShippingInput) {
@@ -27,6 +28,7 @@ export async function createDirectFarmOrderDraft(productId: string, input: Direc
 
   const orderId = `df-${randomUUID().replaceAll("-", "").slice(0, 24)}`;
   const customerKey = input.customerKey ?? `directfarm_${randomUUID()}`;
+  const quantity = Math.min(Math.max(input.quantity ?? 1, 1), 20);
 
   return prisma.directFarmOrder.create({
     data: {
@@ -37,7 +39,8 @@ export async function createDirectFarmOrderDraft(productId: string, input: Direc
       buyerPhone: input.buyerPhone,
       address: input.address,
       addressDetail: input.addressDetail,
-      amount: product.salePrice,
+      quantity,
+      amount: product.salePrice * quantity,
       customerKey,
       status: "DRAFT",
       notificationStatus: "PENDING",

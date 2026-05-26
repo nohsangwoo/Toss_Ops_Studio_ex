@@ -244,6 +244,7 @@ export default async function DirectFarmAdminPage() {
                     <TableHead>상태</TableHead>
                     <TableHead>주문</TableHead>
                     <TableHead>구매자</TableHead>
+                    <TableHead className="text-right">수량</TableHead>
                     <TableHead className="text-right">금액</TableHead>
                     <TableHead>도매처</TableHead>
                     <TableHead>전송</TableHead>
@@ -253,8 +254,8 @@ export default async function DirectFarmAdminPage() {
                 </TableHeader>
                 <TableBody>
                   {orders.length === 0 ? (
-                    <TableRow>
-                      <TableCell colSpan={8} className="h-32 text-center text-neutral-500">
+                      <TableRow>
+                      <TableCell colSpan={9} className="h-32 text-center text-neutral-500">
                         아직 DirectFarm 주문이 없습니다.
                       </TableCell>
                     </TableRow>
@@ -272,6 +273,7 @@ export default async function DirectFarmAdminPage() {
                           <div>{order.buyerName}</div>
                           <div className="text-xs text-neutral-500">{maskPhone(order.buyerPhone)}</div>
                         </TableCell>
+                        <TableCell className="text-right font-mono">{order.quantity}개</TableCell>
                         <TableCell className="text-right font-mono">{formatWon(order.amount)}</TableCell>
                         <TableCell>
                           <div>{order.vendor.name}</div>

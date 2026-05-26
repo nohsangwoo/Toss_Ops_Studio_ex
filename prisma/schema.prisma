@@ -130,6 +130,7 @@ model DirectFarmOrder {
   buyerPhone         String
   address            String
   addressDetail      String?
+  quantity           Int                          @default(1)
   amount             Int
   currency           String                       @default("KRW")
   status             DirectFarmOrderStatus        @default(DRAFT)

@@ -79,4 +79,10 @@ export const directFarmProducts = [
 export const directFarmHeroAssets = {
   hero: "/images/directfarm/directfarm-hero.jpeg",
   packing: "/images/directfarm/farm-packing.jpeg",
+  slides: [
+    "/images/directfarm/directfarm-hero.jpeg",
+    "/images/directfarm/directfarm-hero-market.jpeg",
+    "/images/directfarm/directfarm-hero-tablet.jpeg",
+    "/images/directfarm/directfarm-hero-delivery.jpeg",
+  ],
 } as const;

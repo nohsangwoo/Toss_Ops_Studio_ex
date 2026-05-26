@@ -10,6 +10,7 @@ const prepareDirectFarmOrderSchema = z.object({
   buyerPhone: z.string().min(8).max(30),
   address: z.string().min(5).max(160),
   addressDetail: z.string().max(120).optional().or(z.literal("")),
+  quantity: z.number().int().min(1).max(20).optional(),
   customerKey: z.string().min(2).max(300).optional(),
   turnstileToken: z.string().min(1),
 });
@@ -42,6 +43,7 @@ export async function POST(request: Request) {
     buyerPhone: parsed.data.buyerPhone.trim(),
     address: parsed.data.address.trim(),
     addressDetail: parsed.data.addressDetail?.trim() || undefined,
+    quantity: parsed.data.quantity,
     customerKey: parsed.data.customerKey,
   });
 
@@ -49,7 +51,7 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     orderId: order.orderId,
-    orderName: order.product.name,
+    orderName: order.quantity > 1 ? `${order.product.name} ${order.quantity}개` : order.product.name,
     amount: order.amount,
     currency: order.currency,
     customerKey: order.customerKey,

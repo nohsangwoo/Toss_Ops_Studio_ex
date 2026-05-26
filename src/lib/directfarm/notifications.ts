@@ -25,7 +25,7 @@ export async function sendDirectFarmOrderNotification(orderId: string) {
   const message = [
     "[DirectFarm 산지직송 주문]",
     `상품: ${order.product.name}`,
-    `수량/단위: ${order.product.unit}`,
+    `수량/단위: ${order.quantity}개 / ${order.product.unit}`,
     `결제금액: ${order.amount.toLocaleString("ko-KR")}원`,
     `수령인: ${order.buyerName}`,
     `연락처: ${order.buyerPhone}`,

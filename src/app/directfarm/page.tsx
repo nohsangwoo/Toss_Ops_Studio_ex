@@ -2,6 +2,8 @@ import { ArrowRight, BadgeCheck, MapPin, ReceiptText, ShieldCheck, Truck } from 
 import Image from "next/image";
 import Link from "next/link";
 
+import { DirectFarmHeroCarousel } from "@/components/directfarm/hero-carousel";
+import { DirectFarmProductCatalog } from "@/components/directfarm/product-catalog";
 import { Button } from "@/components/ui/button";
 import { directFarmHeroAssets } from "@/lib/directfarm/demo-data";
 import { formatWon } from "@/lib/directfarm/format";
@@ -75,14 +77,7 @@ export default async function DirectFarmPage() {
         <div className="relative">
           <div className="overflow-hidden rounded-[40px] border border-neutral-200 bg-neutral-100 shadow-[0_24px_80px_rgba(15,23,42,0.14)]">
             <div className="relative aspect-[4/3]">
-              <Image
-                src={directFarmHeroAssets.hero}
-                alt="DirectFarm 무인 주문 키오스크"
-                fill
-                sizes="(min-width: 1024px) 52vw, 100vw"
-                className="object-cover"
-                priority
-              />
+              <DirectFarmHeroCarousel slides={directFarmHeroAssets.slides} />
             </div>
             <div className="grid gap-3 bg-white p-5 sm:grid-cols-3">
               <FeaturePill icon={<ReceiptText />} label="단건 결제" />
@@ -128,43 +123,19 @@ export default async function DirectFarmPage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {products.map((product) => (
-              <Link
-                key={product.id}
-                href={`/directfarm/products/${product.slug}`}
-                className="group overflow-hidden rounded-[28px] border border-neutral-200 bg-white transition hover:-translate-y-1 hover:shadow-xl"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={product.imageUrl}
-                    alt={product.name}
-                    fill
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    loading="eager"
-                    className="object-cover transition duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="space-y-4 p-5">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400">
-                      {product.origin}
-                    </p>
-                    <h3 className="mt-2 text-2xl font-semibold tracking-tight">{product.name}</h3>
-                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-600">
-                      {product.description}
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-between border-t border-neutral-100 pt-4">
-                    <span className="font-mono font-semibold">{formatWon(product.salePrice)}</span>
-                    <span className="rounded-full bg-neutral-950 px-3 py-1 text-sm font-semibold text-white">
-                      주문
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <DirectFarmProductCatalog
+            products={products.map((product) => ({
+              id: product.id,
+              slug: product.slug,
+              name: product.name,
+              description: product.description,
+              imageUrl: product.imageUrl,
+              origin: product.origin,
+              unit: product.unit,
+              salePrice: product.salePrice,
+              vendorName: product.vendor.name,
+            }))}
+          />
         </div>
       </section>
 
