@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MOCK_PRODUCTS } from "@/lib/payments/products";
+import { getPaymentSdkErrorMessage, normalizeMobilePhone } from "@/lib/payments/sdk-error";
 
 type TossWidgets = {
   setAmount: (amount: { value: number; currency: "KRW" }) => Promise<void>;
@@ -21,6 +22,7 @@ type TossWidgets = {
     failUrl: string;
     customerEmail?: string;
     customerName?: string;
+    customerMobilePhone?: string;
   }) => Promise<void>;
 };
 
@@ -98,6 +100,7 @@ export function PaymentWidgetCheckout({
   const [productId, setProductId] = useState(initialProductId);
   const [customerName, setCustomerName] = useState("홍길동");
   const [customerEmail, setCustomerEmail] = useState("buyer@example.com");
+  const [customerMobilePhone, setCustomerMobilePhone] = useState("01012345678");
   const [customerKey] = useState(createCustomerKey);
   const [widgetMessage, setWidgetMessage] = useState("결제위젯을 준비하고 있습니다.");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -202,11 +205,12 @@ export function PaymentWidgetCheckout({
           failUrl: prepared.failUrl,
           customerEmail,
           customerName,
+          customerMobilePhone: normalizeMobilePhone(customerMobilePhone),
         });
       } catch (error) {
         setTurnstileToken(null);
         setTurnstileResetKey((key) => key + 1);
-        setErrorMessage(error instanceof Error ? error.message : "결제 요청 중 오류가 발생했습니다.");
+        setErrorMessage(getPaymentSdkErrorMessage(error, "결제 요청 중 오류가 발생했습니다."));
       }
     });
   }
@@ -263,6 +267,16 @@ export function PaymentWidgetCheckout({
             autoComplete="email"
             value={customerEmail}
             onChange={(event) => setCustomerEmail(event.target.value)}
+            className="bg-[var(--color-claude-canvas)]"
+          />
+        </div>
+        <div className="space-y-2 md:col-span-2">
+          <Label>휴대폰 번호</Label>
+          <Input
+            inputMode="tel"
+            autoComplete="tel"
+            value={customerMobilePhone}
+            onChange={(event) => setCustomerMobilePhone(event.target.value)}
             className="bg-[var(--color-claude-canvas)]"
           />
         </div>

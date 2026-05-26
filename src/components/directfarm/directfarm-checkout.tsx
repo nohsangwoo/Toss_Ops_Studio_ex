@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { formatWon } from "@/lib/directfarm/format";
+import { getPaymentSdkErrorMessage, normalizeMobilePhone } from "@/lib/payments/sdk-error";
 
 type TossPaymentsFactory = NonNullable<Window["TossPayments"]>;
 type TossWidgets = ReturnType<ReturnType<TossPaymentsFactory>["widgets"]>;
@@ -198,11 +199,12 @@ export function DirectFarmCheckout({
           successUrl: prepared.successUrl,
           failUrl: prepared.failUrl,
           customerName: buyerName,
+          customerMobilePhone: normalizeMobilePhone(buyerPhone),
         });
       } catch (error) {
         setTurnstileToken(null);
         setTurnstileResetKey((key) => key + 1);
-        setErrorMessage(error instanceof Error ? error.message : "결제 요청 중 오류가 발생했습니다.");
+        setErrorMessage(getPaymentSdkErrorMessage(error, "결제 요청 중 오류가 발생했습니다."));
       }
     });
   }

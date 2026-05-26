@@ -40,6 +40,7 @@ export async function POST(request: Request) {
     customerName: parsed.data.customerName,
     customerEmail: parsed.data.customerEmail || undefined,
   });
+  const origin = new URL(request.url).origin;
 
   return NextResponse.json({
     orderId: payment.orderId,
@@ -47,7 +48,7 @@ export async function POST(request: Request) {
     amount: payment.amount,
     currency: payment.currency,
     customerKey: payment.customerKey,
-    successUrl: `${process.env.NEXTAUTH_URL ?? "http://localhost:3000"}/payments/success`,
-    failUrl: `${process.env.NEXTAUTH_URL ?? "http://localhost:3000"}/payments/fail`,
+    successUrl: `${origin}/payments/success`,
+    failUrl: `${origin}/payments/fail`,
   });
 }
