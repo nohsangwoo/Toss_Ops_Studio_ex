@@ -1,6 +1,7 @@
 import "dotenv/config";
 import bcrypt from "bcryptjs";
 
+import { directFarmProducts, directFarmVendors } from "../src/lib/directfarm/demo-data";
 import { getPrisma } from "../src/lib/prisma";
 
 async function main() {
@@ -55,6 +56,72 @@ async function main() {
           requestedAt: new Date(),
         },
       ],
+    });
+  }
+
+  console.log("Upserting DirectFarm vendors and products...");
+  const vendorIdByName = new Map<string, string>();
+
+  for (const vendor of directFarmVendors) {
+    const existingVendor = await prisma.directFarmVendor.findFirst({
+      where: { name: vendor.name },
+    });
+
+    const savedVendor = existingVendor
+      ? await prisma.directFarmVendor.update({
+          where: { id: existingVendor.id },
+          data: {
+            managerName: vendor.managerName,
+            phone: vendor.phone,
+            isActive: true,
+          },
+        })
+      : await prisma.directFarmVendor.create({
+          data: {
+            name: vendor.name,
+            managerName: vendor.managerName,
+            phone: vendor.phone,
+            isActive: true,
+          },
+        });
+
+    vendorIdByName.set(savedVendor.name, savedVendor.id);
+  }
+
+  for (const product of directFarmProducts) {
+    const vendorId = vendorIdByName.get(product.vendorName);
+
+    if (!vendorId) {
+      throw new Error(`DirectFarm vendor not found: ${product.vendorName}`);
+    }
+
+    await prisma.directFarmProduct.upsert({
+      where: { slug: product.slug },
+      update: {
+        name: product.name,
+        description: product.description,
+        imageUrl: product.imageUrl,
+        origin: product.origin,
+        unit: product.unit,
+        salePrice: product.salePrice,
+        wholesalePrice: product.wholesalePrice,
+        sortOrder: product.sortOrder,
+        vendorId,
+        isActive: true,
+      },
+      create: {
+        slug: product.slug,
+        name: product.name,
+        description: product.description,
+        imageUrl: product.imageUrl,
+        origin: product.origin,
+        unit: product.unit,
+        salePrice: product.salePrice,
+        wholesalePrice: product.wholesalePrice,
+        sortOrder: product.sortOrder,
+        vendorId,
+        isActive: true,
+      },
     });
   }
 

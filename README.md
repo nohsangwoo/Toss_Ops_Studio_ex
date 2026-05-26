@@ -12,6 +12,8 @@ GitHub 저장소: https://github.com/nohsangwoo/Toss_Ops_Studio_ex.git
 
 시연 페이지: https://tossops.bsclinic.xyz/showcase
 
+DirectFarm 무인 산지직송 MVP: https://tossops.bsclinic.xyz/directfarm
+
 ## 핵심 구현
 
 - Next.js 15 App Router 기반 PC Web 목업
@@ -23,6 +25,7 @@ GitHub 저장소: https://github.com/nohsangwoo/Toss_Ops_Studio_ex.git
 - Cloudflare Turnstile 기반 관리자 로그인 및 결제 요청 보호
 - 결제 내역, 승인/취소 합계, 영수증 링크, 환불 증빙 모달 제공
 - 크림/코랄/다크 톤을 중심으로 한 제품형 UI 리디자인
+- `/directfarm` 경로에 무인 산지직송 키오스크, QR 결제, 도매처 전송 로그, 관리자 상품/주문 관리 MVP 추가
 
 ## 기술 스택
 
@@ -93,6 +96,11 @@ ADMIN_EMAIL=admin@example.com
 ADMIN_PASSWORD=admin1234
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=
 TURNSTILE_SECRET_KEY=
+DIRECTFARM_NOTIFY_PROVIDER=mock
+SOLAPI_API_KEY=
+SOLAPI_API_SECRET=
+ALIGO_API_KEY=
+ALIGO_USER_ID=
 ```
 
 운영 또는 외부 공유 전에는 `NEXTAUTH_SECRET`, `ADMIN_PASSWORD`, Toss 키, Turnstile 키를 반드시 교체하세요.
@@ -106,6 +114,10 @@ TURNSTILE_SECRET_KEY=
 | `/products/payment-widget` | 결제위젯 주문서 구축 패키지 상세 |
 | `/products/admin-operations` | 결제 운영 어드민 패키지 상세 |
 | `/showcase` | README 내용을 시연 페이지로 재구성한 배포용 프로젝트 소개 |
+| `/directfarm` | 태블릿 키오스크형 산지직송 상품 주문 화면 |
+| `/directfarm/products/[slug]` | DirectFarm 상품 상세 |
+| `/directfarm/checkout/[productId]` | 배송지 입력, Turnstile, Toss 결제위젯 |
+| `/directfarm/admin` | 상품/도매처/주문/전송 로그 관리 |
 | `/payments/success` | Toss success URL 처리, 서버 승인, DB 저장 |
 | `/payments/fail` | 실패/중단 결과 저장 |
 | `/login` | 관리자 로그인 |

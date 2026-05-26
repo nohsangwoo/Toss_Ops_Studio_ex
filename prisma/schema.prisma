@@ -23,6 +23,21 @@ enum PaymentStatus {
   FAILED
 }
 
+enum DirectFarmOrderStatus {
+  DRAFT
+  PAYMENT_PENDING
+  PAID
+  FAILED
+  CANCELED
+}
+
+enum DirectFarmNotificationStatus {
+  PENDING
+  SENT
+  FAILED
+  SKIPPED
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -68,4 +83,92 @@ model PaymentEvent {
   payment   Payment  @relation(fields: [paymentId], references: [id], onDelete: Cascade)
 
   @@index([paymentId])
+}
+
+model DirectFarmVendor {
+  id          String              @id @default(cuid())
+  name        String
+  managerName String
+  phone       String
+  isActive    Boolean             @default(true)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  products    DirectFarmProduct[]
+  orders      DirectFarmOrder[]
+
+  @@index([isActive])
+}
+
+model DirectFarmProduct {
+  id             String              @id @default(cuid())
+  slug           String              @unique
+  name           String
+  description    String
+  imageUrl       String
+  origin         String
+  unit           String
+  salePrice      Int
+  wholesalePrice Int
+  isActive       Boolean             @default(true)
+  sortOrder      Int                 @default(0)
+  vendorId       String
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  vendor         DirectFarmVendor    @relation(fields: [vendorId], references: [id])
+  orders         DirectFarmOrder[]
+
+  @@index([isActive, sortOrder])
+  @@index([vendorId])
+}
+
+model DirectFarmOrder {
+  id                 String                       @id @default(cuid())
+  orderId            String                       @unique
+  productId          String
+  vendorId           String
+  buyerName          String
+  buyerPhone         String
+  address            String
+  addressDetail      String?
+  amount             Int
+  currency           String                       @default("KRW")
+  status             DirectFarmOrderStatus        @default(DRAFT)
+  notificationStatus DirectFarmNotificationStatus @default(PENDING)
+  customerKey        String
+  paymentKey         String?                      @unique
+  method             String?
+  receiptUrl         String?
+  requestedAt        DateTime?
+  approvedAt         DateTime?
+  rawResponse        Json?
+  failureCode        String?
+  failureMessage     String?
+  sentAt             DateTime?
+  createdAt          DateTime                     @default(now())
+  updatedAt          DateTime                     @updatedAt
+  product            DirectFarmProduct            @relation(fields: [productId], references: [id])
+  vendor             DirectFarmVendor             @relation(fields: [vendorId], references: [id])
+  notificationLogs   DirectFarmNotificationLog[]
+
+  @@index([productId])
+  @@index([vendorId])
+  @@index([status, createdAt])
+  @@index([notificationStatus])
+}
+
+model DirectFarmNotificationLog {
+  id             String                       @id @default(cuid())
+  orderId        String
+  recipientPhone String
+  channel        String
+  provider       String                       @default("mock")
+  status         DirectFarmNotificationStatus
+  payload        Json
+  errorMessage   String?
+  sentAt         DateTime?
+  createdAt      DateTime                     @default(now())
+  order          DirectFarmOrder              @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([status])
 }
