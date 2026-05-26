@@ -2,7 +2,7 @@ export const directFarmProposal = {
   title: "야외 무인 주문(키오스크형) 및 도매처 직배송 O2O 웹 플랫폼 MVP 개발",
   subtitle: "야외 태블릿 키오스크 기반 단건 주문, QR 결제, 도매처 전송, 관리자 운영 시스템",
   date: "2026.05.26",
-  price: "544,000,000원",
+  price: "5,440,000원",
   vat: "VAT 별도",
   duration: "40일",
   people: "PM 1명, PL 1명",
