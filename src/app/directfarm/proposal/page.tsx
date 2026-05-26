@@ -4,7 +4,7 @@ import { ArrowDownToLine, ArrowUpRight, Database, LockKeyhole, Server, ShieldChe
 import { directFarmProposal } from "@/lib/directfarm/proposal";
 
 export const metadata: Metadata = {
-  title: "DirectFarm MVP 구축 견적서",
+  title: "야외 무인 주문 및 도매처 직배송 O2O 웹 플랫폼 MVP 개발 견적서",
   description: "무인 산지직송 주문 플랫폼 MVP 구축 견적 보고서",
 };
 
