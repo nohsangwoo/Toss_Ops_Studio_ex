@@ -13,7 +13,7 @@ const pdfUrl = "/docs/directfarm-estimate.pdf";
 
 export default function DirectFarmProposalPage() {
   return (
-    <main className="min-h-screen bg-[#f7f7f7] px-5 py-8 text-neutral-950 print:bg-white print:px-0 print:py-0">
+    <main className="min-h-screen bg-[#f7f7f7] px-5 py-8 text-neutral-950 print:bg-white print:px-[12mm] print:py-[10mm]">
       <section className="mx-auto max-w-5xl rounded-[28px] border border-neutral-200 bg-white p-8 shadow-sm print:rounded-none print:border-0 print:p-0 print:shadow-none">
         <section className="rounded-[28px] bg-neutral-950 p-7 text-white print:rounded-2xl print:p-5">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
