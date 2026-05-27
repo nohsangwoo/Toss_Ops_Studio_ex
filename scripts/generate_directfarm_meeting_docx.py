@@ -160,6 +160,100 @@ def add_link(doc: Document, label: str, url: str) -> None:
     set_run(url_run, size=9.5, color=MUTED)
 
 
+def add_cover_page(doc: Document) -> None:
+    add_para(doc, "주식회사 럿지", size=11, bold=True, color=MUTED, after=4)
+    add_para(doc, "DIRECTFARM", size=28, bold=True, color=BLACK, after=2)
+    add_para(doc, "MVP 개발 제안 브리프", size=24, bold=True, color=BLACK, after=12)
+    add_rule(doc)
+    add_para(
+        doc,
+        "야외 무인 주문(키오스크형) 및 도매처 직배송 O2O 웹 플랫폼 MVP 개발",
+        size=14,
+        color=DARK,
+        after=16,
+    )
+    add_table(
+        doc,
+        ["구분", "내용"],
+        [
+            ["제출사", "주식회사 럿지 (LUDGI Inc.)"],
+            ["문서 목적", "미팅 전 프로젝트 이해, 수행 범위, 견적 및 구현 방향 공유"],
+            ["제안 금액", "5,440,000원 / VAT 별도"],
+            ["제안 기간", "40일"],
+            ["투입 인력", "PM 1명, PL 1명"],
+            ["작성일", "2026.05.27"],
+        ],
+        [3.5, 13.0],
+    )
+    add_para(
+        doc,
+        "본 문서는 미팅 검토용으로 작성된 요약 제안서이며, 세부 범위와 일정은 발주처 요구사항 확정 후 조정될 수 있습니다.",
+        size=9.5,
+        color=MUTED,
+        after=0,
+    )
+    doc.add_page_break()
+
+
+def add_company_profile(doc: Document) -> None:
+    add_para(doc, "COMPANY PROFILE", size=18, bold=True, color=BLACK, after=2)
+    add_para(doc, "주식회사 럿지 (LUDGI Inc.)", size=13, bold=True, color=DARK, after=8)
+    add_para(
+        doc,
+        "주식회사 럿지는 웹/앱 제품 개발, 공공·민간 SI, 스타트업 MVP, AI·데이터 솔루션, 클라우드 인프라 구축을 수행하는 소프트웨어 개발 파트너입니다.",
+    )
+    add_bullets(
+        doc,
+        [
+            "공공기관 SI 및 민간 프로젝트 수행 경험을 기반으로 기획부터 배포까지 일괄 대응",
+            "Next.js, React, TypeScript, Node.js, Python, Flutter 기반의 풀스택 제품 개발",
+            "AWS, GCP, Firebase, Docker, Kubernetes, Vercel 등 운영 인프라 경험",
+            "LLM, RAG, Vector Search, Computer Vision 등 제품형 AI 기능 연동 가능",
+            "스타트업 MVP와 운영형 관리자 시스템을 모두 고려한 실무 중심 개발 방식",
+        ],
+    )
+    add_table(
+        doc,
+        ["항목", "회사 정보"],
+        [
+            ["법인명", "LUDGI Inc. (주식회사 럿지)"],
+            ["대표자", "노상우"],
+            ["설립", "2024년"],
+            ["사업자등록번호", "307-88-03283"],
+            ["DUNS Number", "963415644"],
+            ["주소", "인천광역시 연수구 인천타워대로 323, 에이동 20층"],
+            ["연락처", "010-3006-9310"],
+            ["이메일", "milli@molluhub.com"],
+        ],
+        [3.5, 13.0],
+    )
+    add_heading(doc, "회사 역량 요약", 2)
+    add_table(
+        doc,
+        ["영역", "주요 역량"],
+        [
+            ["Full-stack Engineering", "React, Next.js, Flutter, Node.js, Python 기반 웹/앱 제품 개발"],
+            ["Cloud & DevOps", "AWS, GCP, Firebase, Docker, Kubernetes, Vercel 기반 배포·운영"],
+            ["Public Sector SI", "나라장터, KEPCO, KDN 등 공공/규정 대응 경험"],
+            ["Startup MVP", "기획, 디자인, 개발, 출시까지 MVP 구축 일괄 수행"],
+            ["Technical Consulting", "아키텍처 설계, 기술 스택 선정, 코드 리뷰, 인프라 점검"],
+        ],
+        [4.7, 11.8],
+    )
+    add_heading(doc, "본 프로젝트와의 적합성", 2)
+    add_bullets(
+        doc,
+        [
+            "결제, 주문, 관리자, 배포를 한 팀에서 연결해 MVP 속도를 높일 수 있습니다.",
+            "PG/알림/DB/관리자 권한 등 실제 운영에서 자주 문제가 되는 지점을 사전에 구조화합니다.",
+            "태블릿 키오스크에서 시작하되, 향후 모바일 앱과 PC 운영 화면까지 확장 가능한 구조를 제안합니다.",
+        ],
+    )
+    add_link(doc, "회사 소개", "https://info.ludgi.ai/company")
+    add_link(doc, "회사 홈페이지", "https://info.ludgi.ai/")
+    doc.add_page_break()
+
+
 def convert_for_docx(src: Path, tmp_dir: Path, name: str, max_width: int = 1500) -> Path:
     image = Image.open(src)
     image = ImageOps.exif_transpose(image)
@@ -228,6 +322,9 @@ def build_doc() -> None:
     doc.core_properties.title = "DirectFarm 미팅 제안서"
     doc.core_properties.subject = "야외 무인 주문 및 도매처 직배송 O2O 웹 플랫폼 MVP 개발"
     doc.core_properties.author = "LUDGI"
+
+    add_cover_page(doc)
+    add_company_profile(doc)
 
     add_para(doc, "DIRECTFARM MVP 제안 브리프", size=22, bold=True, color=BLACK, after=4)
     add_para(
