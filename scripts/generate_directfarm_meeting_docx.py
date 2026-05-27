@@ -166,7 +166,7 @@ def convert_for_docx(src: Path, tmp_dir: Path, name: str, max_width: int = 1500)
     if image.width > max_width:
         ratio = max_width / image.width
         image = image.resize((max_width, int(image.height * ratio)))
-    image = ImageOps.grayscale(image).convert("RGB")
+    image = image.convert("RGB")
     out = tmp_dir / f"{name}.png"
     image.save(out, "PNG", optimize=True)
     return out
